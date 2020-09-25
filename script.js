@@ -107,14 +107,8 @@ function printInTable(divID, printText, i, answer) {
 		</div>
     </div>`;
   document.getElementById(divID).innerHTML += text;
-  //$('.extremum-click').text(function () {
-  //  $(this).siblings('.extremum-slide').slideToggle('fast');
-  //});
-  //$('.extremum-click').click(function () {
-  //  $(this).siblings('.extremum-slide').slideToggle('fast');
-  //});
   $('button').click(function () {
-    $(this).siblings('div').slideToggle('slow');
+    $(this).siblings('div').slideToggle('fast');
   });
 }
 
