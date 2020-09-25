@@ -3,7 +3,7 @@
   <head>
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="http://code.jquery.com/jquery-1.4.4.js"></script>	
+		<script src="http://code.jquery.com/jquery-1.4.4.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css" />
     <meta name="theme-color" content="#0288D1" />
   </head>
@@ -15,7 +15,7 @@
           <label for="task"> Выбор задания </label>
           <select id="task" name="task" placeholder="Выбор задания">
             <option value="1">Системы счисления</option>
-            <option value="2">Расстояние до точки</option>
+            <option value="2">Расстояние до пункта</option>
           </select>
           <br />
           <label for="difficulty">Сложность</label>
@@ -28,18 +28,35 @@
             <label for="input_key">Ключ</label>
             <input type="text" id="input_key">
             <!-- <span class="spanbutton" id="showseed">S</span> -->
-           <br /> 
+           <br />
+					 <br />
+					 <label for="amount">Количество заданий</label>
+            <select type="text" id="amount">
+							<option value="1">1</option>
+            	<option value="2">2</option>
+            	<option value="3">3</option>
+							<option value="4">4</option>
+            	<option value="5">5</option>
+            	<option value="6">6</option>
+							<option value="7">7</option>
+            	<option value="8">8</option>
+            	<option value="9">9</option>
+            	<option value="10">10</option>
+						</select>
            <br />
           <button id="generate">Сгенерировать</button>
           <br />
           </div>
+					<div id="utils">
+						<button id="showall">Раскрыть все ответы</button>
+					</div>
         </div>
       </div>
       <div id="rightwindow">
       </div>
     </div>
-  <script src="numeric.js"></script>
-  <script src="script.js"></script>
-  <script src="MersenneTwister.js"></script>
   </body>
+	<script src="numeric.js"></script>
+	<script src="script.js"></script>
+	<script src="MersenneTwister.js"></script>
 </html>

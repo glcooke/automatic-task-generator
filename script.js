@@ -43,11 +43,11 @@ function generate_problem() {
   key = Number(document.getElementById('input_key').value);
   generator = new MersenneTwister(key);
   task_type = Number(document.getElementById('task').value);
-  amount = 10;
+  amount = Number(document.getElementById('amount').value);
   //amount = Number(document.getElementById('amount').value);
   for (var i = 0; i < amount; i++) {
     switch (task_type) {
-      case 1:
+      case 1: {
         switch (difficulty) {
           case 1: {
             generate_numeric_1(i);
@@ -63,6 +63,24 @@ function generate_problem() {
           }
         }
         break;
+      }
+      case 2: {
+        switch (difficulty) {
+          case 1: {
+            generate_numeric_1(i);
+            break;
+          }
+          case 2: {
+            generate_numeric_2(i);
+            break;
+          }
+          case 3: {
+            generate_numeric_3(i);
+            break;
+          }
+        }
+        break;
+      }
     }
   }
 }
@@ -81,9 +99,7 @@ function printInTable(divID, printText, i, answer) {
         
         <div id="generated${i}" style="margin-bottom: 5px;text-align: center;">${printText}</div>
         <div class="block">
-        <button class="hide" align="center">Ответ к заданию ${
-          i + 1
-        }: </button>
+        <button class="hide" align="center" name="show">Ответ к заданию ${i + 1}: </button>
 		<hr>
     <div class="extremum-slide" style="display: none">
     <div id="answer${i}" style="margin-bottom: 5px;  text-align: center;">${answer}</div>
@@ -97,9 +113,17 @@ function printInTable(divID, printText, i, answer) {
   //$('.extremum-click').click(function () {
   //  $(this).siblings('.extremum-slide').slideToggle('fast');
   //});
-  $("button").click(function () {
-      $(this).siblings("div").slideToggle("slow");
-    });
+  $('button').click(function () {
+    $(this).siblings('div').slideToggle('slow');
+  });
+}
+
+document.getElementById('showall').addEventListener('click', showall);
+
+function showall() {
+  var buttons = document.getElementsByName("show");
+  for(var i = 0; i < buttons.length; i++)  
+       buttons[i].click();
 }
 
 function print_in_div(divID, print_text) {
