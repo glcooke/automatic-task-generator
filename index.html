@@ -4,6 +4,12 @@
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 		<script src="http://code.jquery.com/jquery-1.4.4.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html-to-pdfmake/docs/browser.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js" integrity="sha512-vv3EN6dNaQeEWDcxrKPFYSFba/kgm//IUnvLPMPadaUf5+ylZyx4cKxuc4HdBf0PPAlM7560DV63ZcolRJFPqA==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.min.js" integrity="sha512-VIF8OqBWob/wmCvrcQs27IrQWwgr3g+iA4QQ4hH/YeuYBIoAUluiwr/NX5WQAQgUaVx39hs6l05cEOIGEB+dmA==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="style.css" />
     <meta name="theme-color" content="#0288D1" />
   </head>
@@ -25,8 +31,9 @@
             <option value="3">Сложно</option>
           </select>
             <br />
-            <label for="input_key">Ключ</label>
+            <label for="input_key" id="input_key_label">Ключ</label>
             <input type="text" id="input_key">
+            <button id="random">Случайный</button>
             <!-- <span class="spanbutton" id="showseed">S</span> -->
            <br />
 					 <br />
@@ -45,10 +52,17 @@
 						</select>
            <br />
           <button id="generate">Сгенерировать</button>
+          <button id="test">Создать контрольную</button>
           <br />
           </div>
 					<div id="utils">
 						<button id="showall">Раскрыть все ответы</button>
+						<br>
+						<br>
+						<button id="hideall">Закрыть все отвты</button>
+						<br>
+						<br>
+						<button id="pdf">Распечатать задания в формате PDF</button>
 					</div>
         </div>
       </div>
@@ -58,5 +72,6 @@
   </body>
 	<script src="numeric.js"></script>
 	<script src="script.js"></script>
+  <script src="table.js"></script>
 	<script src="MersenneTwister.js"></script>
 </html>

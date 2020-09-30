@@ -9,11 +9,13 @@ var start_system = 0;
 var end_system = 0;
 var generator = '';
 var task_type = 0;
+var content_raw = []
 
 document.getElementById('generate').addEventListener('click', resetAndGen);
 
 function resetAndGen() {
   document.getElementById('rightwindow').innerHTML = '';
+  content_raw = []
   generate_problem();
 }
 
@@ -44,7 +46,6 @@ function generate_problem() {
   generator = new MersenneTwister(key);
   task_type = Number(document.getElementById('task').value);
   amount = Number(document.getElementById('amount').value);
-  //amount = Number(document.getElementById('amount').value);
   for (var i = 0; i < amount; i++) {
     switch (task_type) {
       case 1: {
@@ -67,15 +68,15 @@ function generate_problem() {
       case 2: {
         switch (difficulty) {
           case 1: {
-            generate_numeric_1(i);
+            generate_table_1(i, difficulty);
             break;
           }
           case 2: {
-            generate_numeric_2(i);
+            generate_table_1(i, difficulty);
             break;
           }
           case 3: {
-            generate_numeric_3(i);
+            generate_table_1(i, difficulty);
             break;
           }
         }
@@ -89,22 +90,21 @@ function system_convert(dec, start_system, end_system) {
   return parseInt(dec, start_system).toString(end_system).toUpperCase();
 }
 
-function show_answer() {
-  print_in_div('modalans', answer);
-}
-
 function printInTable(divID, printText, i, answer) {
   var text = `
-        <p style = "text-align: center"> Задание ${i + 1}:<p>
+        <p style = "text-align: left"> Задание ${i + 1}:<p>
         
         <div id="generated${i}" style="margin-bottom: 5px;text-align: center;">${printText}</div>
         <div class="block">
-        <button class="hide" align="center" name="show">Ответ к заданию ${i + 1}: </button>
-		<hr>
+        <br>
+        <button class="hide" align="center" name="show">Ответ к заданию ${
+          i + 1
+        }: </button>
+		<br>
     <div class="extremum-slide" style="display: none">
-    <div id="answer${i}" style="margin-bottom: 5px;  text-align: center;">${answer}</div>
-    <hr>
+    <div class="answer" style="margin-bottom: 5px;  text-align: center;">${answer}</div>
 		</div>
+    <hr>
     </div>`;
   document.getElementById(divID).innerHTML += text;
   $('button').click(function () {
@@ -112,15 +112,66 @@ function printInTable(divID, printText, i, answer) {
   });
 }
 
-document.getElementById('showall').addEventListener('click', showall);
-
-function showall() {
-  var buttons = document.getElementsByName("show");
-  for(var i = 0; i < buttons.length; i++)  
-       buttons[i].click();
+function printTables(divID, printText, i, answer) {
+  document.getElementById(divID).appendChild(printText);
+  document.getElementById(divID).innerHTML += `
+        <div class="block">
+        <br>
+        <button class="hide" align="center" name="show">Ответ к заданию ${
+          i + 1
+        }: </button>
+		<br>
+    <div class="extremum-slide" style="display: none">
+    <div class="answer" style="margin-bottom: 5px;  text-align: center;">${answer}</div>
+		</div>
+    <hr>
+    </div>`;
+  $('button').click(function () {
+    $(this).siblings('div').slideToggle('fast');
+  });
 }
 
-function print_in_div(divID, print_text) {
+document.getElementById('showall').addEventListener('click', showall);
+document.getElementById('hideall').addEventListener('click', hideall);
+document.getElementById('random').addEventListener('click', generate_random);
+document.getElementById('test').addEventListener('click', create_test);
+document.getElementById('pdf').addEventListener('click', savePDF);
+
+
+
+function savePDF() {
+  var copy = JSON.parse(JSON.stringify(content_raw))
+  var dd = {content:copy};
+  pdfMake.createPdf(dd).download();
+}
+
+function create_test() {
+  alert('Still in development!')
+}
+
+function generate_random() {
+  document.getElementById('input_key').value = Math.floor(
+    Math.random() * 2147483647
+  );
+}
+
+function showall() {
+  var buttons = document.getElementsByName('show');
+  var divs = document.getElementsByClassName('answer');
+  for (var i = 0; i < buttons.length; i++) {
+    if ($(divs[i]).is(':hidden')) buttons[i].click();
+  }
+}
+
+function hideall() {
+  var buttons = document.getElementsByName('show');
+  var divs = document.getElementsByClassName('answer');
+  for (var i = 0; i < buttons.length; i++) {
+    if ($(divs[i]).is(':visible')) buttons[i].click();
+  }
+}
+
+function printInDiv(divID, print_text) {
   var div = document.getElementById(divID);
   div.innerHTML += print_text + '<br />';
 }

@@ -22,22 +22,39 @@ function generate_numeric_1(i) {
     'Переведите число ' + task.toUpperCase() + (start_system + '').sub();
   switch (end_system) {
     case 2: {
+      var temp_pdf = ' в двоичную систему.';
       print += ' в двоичную систему.';
       break;
     }
     case 8: {
+      var temp_pdf = ' в десятичную систему.';
       print += ' в восьмеричную систему.';
       break;
     }
     case 10: {
+      var temp_pdf = ' в десятичную систему.';
       print += ' в десятичную систему.';
       break;
     }
     case 16: {
+      var temp_pdf = ' в десятичную систему.';
       print += ' в шестнадцатеричную систему.';
       break;
     }
   }
+  var task_pdf = htmlToPdfmake(`
+    <p style = "text-align: left"> Задание ${i + 1}:</p>
+    `);
+
+  task_pdf.push({
+    text: [
+      'Переведите число ' + task.toUpperCase(),
+      { text: start_system, fontSize: 8 },
+      temp_pdf,
+    ],
+  });
+  task_pdf.push(htmlToPdfmake('<hr>'));
+  content_raw.push({ unbreakable: true, stack: task_pdf });
   answer = 'Ответ: ' + answer + (end_system + '').sub() + '.';
   printInTable('rightwindow', print, i, answer);
 }
@@ -77,6 +94,21 @@ function generate_numeric_2(i) {
           answer = 'Ответ: они равны.';
         }
       }
+      var task_pdf = htmlToPdfmake(`
+    <p style = "text-align: left"> Задание ${i + 1}:</p>
+    `);
+
+          task_pdf.push({
+            text: [
+              'Какое число больше, ' + system_convert(x, 10, start_system_x).toUpperCase(),
+              { text: start_system_x, fontSize: 8 },
+              ' или ' + system_convert(y, 10, start_system_y).toUpperCase(),
+              { text: start_system_y, fontSize: 8 },
+              '?'
+            ],
+          });
+          task_pdf.push(htmlToPdfmake('<hr>'));
+          content_raw.push({ unbreakable: true, stack: task_pdf });
       break;
     }
     case 1: {
@@ -93,13 +125,30 @@ function generate_numeric_2(i) {
             system_convert(y, 10, 16) +
             (16 + '').sub();
           if (generator.random_int() % 2 == 0) {
+            var temp_pdf =  '. Ответ представьте в шестнадцатеричной системе счисления.'
             print +=
               '. Ответ представьте в шестнадцатеричной системе счисления.';
             answer = 'Ответ: ' + system_convert(x + y, 10, 16) + '16'.sub();
           } else {
+            var temp_pdf = '. Ответ представьте в десятичной системе счисления.'
             print += '. Ответ представьте в десятичной системе счисления.';
             answer = 'Ответ: ' + (x + y) + '10'.sub();
           }
+          var task_pdf = htmlToPdfmake(`
+    <p style = "text-align: left"> Задание ${i + 1}:</p>
+    `);
+
+          task_pdf.push({
+            text: [
+              'Вычислите ' + system_convert(x, 10, 16).toUpperCase(),
+              { text: 16, fontSize: 8 },
+              ' + ' + system_convert(y, 10, 16).toUpperCase(),
+              { text: 16, fontSize: 8 },
+              temp_pdf
+            ],
+          });
+          task_pdf.push(htmlToPdfmake('<hr>'));
+          content_raw.push({ unbreakable: true, stack: task_pdf });
           break;
         }
         case -1: {
@@ -120,8 +169,24 @@ function generate_numeric_2(i) {
             print += '. Ответ представьте в десятичной системе счисления.';
             answer = 'Ответ: ' + (x - y) + '10'.sub();
           }
+          var task_pdf = htmlToPdfmake(`
+    <p style = "text-align: left"> Задание ${i + 1}:</p>
+    `);
+
+          task_pdf.push({
+            text: [
+              'Вычислите ' + system_convert(x, 10, 16).toUpperCase(),
+              { text: 16, fontSize: 8 },
+              ' - ' + system_convert(y, 10, 16).toUpperCase(),
+              { text: 16, fontSize: 8 },
+              temp_pdf
+            ],
+          });
+          task_pdf.push(htmlToPdfmake('<hr>'));
+          content_raw.push({ unbreakable: true, stack: task_pdf });
           break;
         }
+        
       }
       break;
     }
@@ -137,18 +202,34 @@ function generate_numeric_2(i) {
         (start_system + '').sub();
       switch (end_system) {
         case 2: {
+          var temp_pdf = ' в двоичную систему счисления.'
           print += ' в двоичную систему счисления.';
           break;
         }
         case 8: {
+          var temp_pdf = ' в восьмеричную систему счисления.'
           print += ' в восьмеричную систему счисления.';
           break;
         }
         case 16: {
+          var temp_pdf = ' в шестнадцатеричную систему счисления.'
           print += ' в шестнадцатеричную систему счисления.';
           break;
         }
       }
+      var task_pdf = htmlToPdfmake(`
+    <p style = "text-align: left"> Задание ${i + 1}:</p>
+    `);
+
+          task_pdf.push({
+            text: [
+              'Переведите число ' + system_convert(task, 10, start_system).toUpperCase(),
+              { text:start_system, fontSize: 8 },
+              temp_pdf
+            ],
+          });
+          task_pdf.push(htmlToPdfmake('<hr>'));
+          content_raw.push({ unbreakable: true, stack: task_pdf });
       answer =
         'Ответ: ' +
         system_convert(task, 10, end_system) +
@@ -176,6 +257,7 @@ function generate_numeric_3(i) {
   switch (prob) {
     case 1: {
       answer = system_convert(x + y, 10, end_system);
+      var temp_sign = ' + '
       print +=
         system_convert(x, 10, start_system_x) +
         (start_system_x + '').sub() +
@@ -189,6 +271,7 @@ function generate_numeric_3(i) {
         [x, y] = [y, x];
       }
       answer = system_convert(x - y, 10, end_system);
+      var temp_sign = ' - '
       print +=
         system_convert(x, 10, start_system_x) +
         (start_system_x + '').sub() +
@@ -201,22 +284,40 @@ function generate_numeric_3(i) {
   print += '. Ответ представьте';
   switch (end_system) {
     case 2: {
+      var temp_pdf = ' в двоичной системе.'
       print += ' в двоичной системе.';
       break;
     }
     case 8: {
+      var temp_pdf = ' в восьмеричной системе.'
       print += ' в восьмеричной системе.';
       break;
     }
     case 10: {
+      var temp_pdf = ' в десятичной системе.'
       print += ' в десятичной системе.';
       break;
     }
     case 16: {
+      var temp_pdf = ' в шестнадцатеричной системе.'
       print += ' в шестнадцатеричной системе.';
       break;
     }
   }
-  answer = 'Ответ: ' + answer + (end_system + '').sub() + '.';
+  var task_pdf = htmlToPdfmake(`
+    <p style = "text-align: left"> Задание ${i + 1}:</p>
+    `);
+
+          task_pdf.push({
+            text: [
+              'Вычислите ' + system_convert(x, 10, start_system_x).toUpperCase(),
+              { text: start_system_x, fontSize: 8 },
+              temp_sign + system_convert(y, 10, start_system_y).toUpperCase(),
+              { text: start_system_y, fontSize: 8 },
+              temp_pdf
+            ],
+          });
+          task_pdf.push(htmlToPdfmake('<hr>'));
+          content_raw.push({ unbreakable: true, stack: task_pdf });
   printInTable('rightwindow', print, i, answer);
 }
