@@ -1,8 +1,3 @@
-button:focus {
-  outline: none;
-}
-
-
 hr {
   color: black; /* Цвет линии для остальных браузеров */
   height: 1px; /* Толщина линии */
@@ -39,7 +34,8 @@ select {
   text-align: center;
 }
 
-#random, #copy {
+#random,
+#copy {
   width: 42px;
   background: wheat;
   border: 1px solid black;
@@ -88,7 +84,7 @@ select {
 #test {
   width: 80%;
   margin-left: 35px;
-  background:wheat;
+  background: wheat;
   border: 1px solid black;
   color: black;
   padding: 10px 32px;
@@ -163,18 +159,35 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
-/*input[type=password] {
-    font-size: px;
-}*/
+.amount {
+  margin-bottom: 10px;
+}
 
-a:visited {
-  color: #0000FF;
+header {
+  height: 70px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding-left: 20px;
+  background: rgb(96, 71, 113);
+}
+
+#leftwindow {
+  height: 100%;
+  margin-top: 70px;
+  width: 350px;
+  top: 0;
+  left: 0;
+  position: fixed;
+  background: darkslategray;
+  font-size: 17pt;
+  /*box-shadow: 0.000005px 0px 20px 2px #AAA;*/
 }
 
 #taskoptions {
   width: auto;
   height: auto;
-  background-color:gray;
+  background-color: gray;
   border: #000000;
   border-radius: 2px;
 }
@@ -186,34 +199,25 @@ a:visited {
   border-radius: 2px;
   padding-left: 50px;
   padding-top: 30px;
-} 
-.amount {
-  margin-bottom: 10px;
 }
 
-#seed {
-  width: 56px;
-  text-align: center;
-}
-
-#leftwindow {
-  height: 100%;
-  width: 350px;
-  top: 0;
-  left: 0;
-  position: fixed;
-  background: darkslategray;
-  font-size: 17pt;
-  /*box-shadow: 0.000005px 0px 20px 2px #AAA;*/
+::-webkit-scrollbar {
+  display: none;
 }
 
 #rightwindow {
-  padding-top: 10px;
-  position: relative;
+  overflow: auto;
+  position: absolute;
   margin-left: 350px;
   padding-left: 30px;
+  height:  calc(100% - 70px);
+  margin-top: 70px;
   width: calc(100% - 400px);
-  padding-bottom: 30px;
   font-size: 14pt;
 }
 
+h1 {
+  padding-top: 15px;
+  margin: 0;
+  font-size: 25pt;
+}
