@@ -16,36 +16,35 @@ function generate_numeric_1(i) {
       break;
     }
   }
-  task = randRange(0, 2000).toString(start_system);
+  task = randRange(500, 2000).toString(start_system);
   answer = system_convert(task, start_system, end_system);
   var print =
     'Переведите число ' + task.toUpperCase() + (start_system + '').sub();
   switch (end_system) {
     case 2: {
-      var temp_pdf = ' в двоичную систему.';
-      print += ' в двоичную систему.';
+      var temp_pdf = ' в двоичную систему счисления.';
+      print += ' в двоичную систему счисления.';
       break;
     }
     case 8: {
-      var temp_pdf = ' в десятичную систему.';
-      print += ' в восьмеричную систему.';
+      var temp_pdf = ' в восьмеричную систему счисления.';
+      print += ' в восьмеричную систему счисления.';
       break;
     }
     case 10: {
-      var temp_pdf = ' в десятичную систему.';
-      print += ' в десятичную систему.';
+      var temp_pdf = ' в десятичную систему счисления.';
+      print += ' в десятичную систему счисления.';
       break;
     }
     case 16: {
-      var temp_pdf = ' в десятичную систему.';
-      print += ' в шестнадцатеричную систему.';
+      var temp_pdf = ' в шестнадцатеричную систему счисления.';
+      print += ' в шестнадцатеричную систему счисления.';
       break;
     }
   }
   var task_pdf = htmlToPdfmake(`
     <p style = "text-align: left"> Задание ${i + 1}:</p>
     `);
-
   task_pdf.push({
     text: [
       'Переведите число ' + task.toUpperCase(),
@@ -55,7 +54,7 @@ function generate_numeric_1(i) {
   });
   task_pdf.push(htmlToPdfmake('<hr>'));
   content_raw.push({ unbreakable: true, stack: task_pdf });
-  answer = 'Ответ: ' + answer + (end_system + '').sub() + '.';
+  answer =  answer + (end_system + '').sub();
   printInTable('rightwindow', print, i, answer);
 }
 
@@ -63,8 +62,8 @@ function generate_numeric_2(i) {
   var task_t = generator.random_int() % 3;
   switch (task_t) {
     case 0: {
-      var x = randRange(0, 2000),
-        y = randRange(0, 2000);
+      var x = randRange(500, 2000),
+        y = randRange(500, 2000);
       var start_system_x = systems_full[generator.random_int() % 4];
       var systems_temp = [...systems_full];
       systems_temp.splice(systems_temp.indexOf(start_system_x), 1);
@@ -79,17 +78,15 @@ function generate_numeric_2(i) {
         '?';
       if (x > y) {
         answer =
-          'Ответ: ' +
+          
           system_convert(x, 10, start_system_x) +
-          (start_system_x + '').sub() +
-          '.';
+          (start_system_x + '').sub();
       } else {
         if (x < y) {
           answer =
-            'Ответ: ' +
+            
             system_convert(y, 10, start_system_y) +
-            (start_system_y + '').sub() +
-            '.';
+            (start_system_y + '').sub();
         } else {
           answer = 'Ответ: они равны.';
         }
@@ -112,8 +109,8 @@ function generate_numeric_2(i) {
       break;
     }
     case 1: {
-      var x = randRange(0, 2000),
-        y = randRange(0, 2000);
+      var x = randRange(500, 2000),
+        y = randRange(500, 2000);
       var prob = randSign();
       var print = 'Вычислите ';
       switch (prob) {
@@ -128,11 +125,11 @@ function generate_numeric_2(i) {
             var temp_pdf =  '. Ответ представьте в шестнадцатеричной системе счисления.'
             print +=
               '. Ответ представьте в шестнадцатеричной системе счисления.';
-            answer = 'Ответ: ' + system_convert(x + y, 10, 16) + '16'.sub();
+            answer =  system_convert(x + y, 10, 16) + '16'.sub();
           } else {
             var temp_pdf = '. Ответ представьте в десятичной системе счисления.'
             print += '. Ответ представьте в десятичной системе счисления.';
-            answer = 'Ответ: ' + (x + y) + '10'.sub();
+            answer =  (x + y) + '10'.sub();
           }
           var task_pdf = htmlToPdfmake(`
     <p style = "text-align: left"> Задание ${i + 1}:</p>
@@ -162,12 +159,14 @@ function generate_numeric_2(i) {
             system_convert(y, 10, 16) +
             (16 + '').sub();
           if (generator.random_int() % 2 == 0) {
+            var temp_pdf =  '. Ответ представьте в шестнадцатеричной системе счисления.'
             print +=
               '. Ответ представьте в шестнадцатеричной системе счисления.';
-            answer = 'Ответ: ' + system_convert(x - y, 10, 16) + '16'.sub();
+            answer =  system_convert(x - y, 10, 16) + '16'.sub();
           } else {
+            var temp_pdf = '. Ответ представьте в десятичной системе счисления.'
             print += '. Ответ представьте в десятичной системе счисления.';
-            answer = 'Ответ: ' + (x - y) + '10'.sub();
+            answer =  (x - y) + '10'.sub();
           }
           var task_pdf = htmlToPdfmake(`
     <p style = "text-align: left"> Задание ${i + 1}:</p>
@@ -195,7 +194,7 @@ function generate_numeric_2(i) {
       var systems_temp = [...systems];
       systems_temp.splice(systems_temp.indexOf(start_system), 1);
       var end_system = systems_temp[generator.random_int() % 2];
-      task = randRange(0, 2000);
+      task = randRange(500, 2000);
       var print =
         'Переведите число ' +
         system_convert(task, 10, start_system) +
@@ -231,7 +230,7 @@ function generate_numeric_2(i) {
           task_pdf.push(htmlToPdfmake('<hr>'));
           content_raw.push({ unbreakable: true, stack: task_pdf });
       answer =
-        'Ответ: ' +
+        
         system_convert(task, 10, end_system) +
         (end_system + '').sub();
       break;
@@ -242,8 +241,8 @@ function generate_numeric_2(i) {
 
 function generate_numeric_3(i) {
   var prob = randSign();
-  var x = randRange(0, 2000),
-    y = randRange(0, 2000);
+  var x = randRange(500, 2000),
+    y = randRange(500, 2000);
   var start_system_x = generator.random_int() % 3;
   start_system_x = systems[start_system_x];
   var systems_temp = [...systems];
@@ -256,7 +255,7 @@ function generate_numeric_3(i) {
   var print = 'Вычислите ';
   switch (prob) {
     case 1: {
-      answer = system_convert(x + y, 10, end_system);
+      answer = system_convert(x + y, 10, end_system) + (end_system + '').sub();
       var temp_sign = ' + '
       print +=
         system_convert(x, 10, start_system_x) +
@@ -270,7 +269,7 @@ function generate_numeric_3(i) {
       if (x < y) {
         [x, y] = [y, x];
       }
-      answer = system_convert(x - y, 10, end_system);
+      answer = system_convert(x - y, 10, end_system) + (end_system + '').sub();
       var temp_sign = ' - '
       print +=
         system_convert(x, 10, start_system_x) +
@@ -282,25 +281,26 @@ function generate_numeric_3(i) {
     }
   }
   print += '. Ответ представьте';
+  var temp_pdf = '. Ответ представьте';
   switch (end_system) {
     case 2: {
-      var temp_pdf = ' в двоичной системе.'
-      print += ' в двоичной системе.';
+      temp_pdf += ' в двоичной системе счисления.'
+      print += ' в двоичной системе счисления.';
       break;
     }
     case 8: {
-      var temp_pdf = ' в восьмеричной системе.'
-      print += ' в восьмеричной системе.';
+      temp_pdf += ' в восьмеричной системе счисления.'
+      print += ' в восьмеричной системе счисления.';
       break;
     }
     case 10: {
-      var temp_pdf = ' в десятичной системе.'
-      print += ' в десятичной системе.';
+      temp_pdf += ' в десятичной системе счисления.'
+      print += ' в десятичной системе счисления.';
       break;
     }
     case 16: {
-      var temp_pdf = ' в шестнадцатеричной системе.'
-      print += ' в шестнадцатеричной системе.';
+      temp_pdf += ' в шестнадцатеричной системе счисления.'
+      print += ' в шестнадцатеричной системе счисления.';
       break;
     }
   }

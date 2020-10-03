@@ -9,13 +9,15 @@ var start_system = 0;
 var end_system = 0;
 var generator = '';
 var task_type = 0;
-var content_raw = []
+var content_raw = [];
+var flag = 0;
 
 document.getElementById('generate').addEventListener('click', resetAndGen);
 
 function resetAndGen() {
   document.getElementById('rightwindow').innerHTML = '';
-  content_raw = []
+  flag = 1;
+  content_raw = [];
   generate_problem();
 }
 
@@ -82,6 +84,23 @@ function generate_problem() {
         }
         break;
       }
+      case 3: {
+        switch (difficulty) {
+          case 1: {
+            generate_algo_1(i);
+            break;
+          }
+          case 2: {
+            generate_algo_2(i);
+            break;
+          }
+          case 3: {
+            generate_algo_3(i);
+            break;
+          }
+        }
+        break;
+      }
     }
   }
 }
@@ -94,15 +113,15 @@ function printInTable(divID, printText, i, answer) {
   var text = `
         <p style = "text-align: left"> Задание ${i + 1}:<p>
         
-        <div id="generated${i}" style="margin-bottom: 5px;text-align: center;">${printText}</div>
+        <div id="generated${i}" style="margin-bottom: 5px;text-align: left;">${printText}</div>
         <div class="block">
         <br>
-        <button class="hide" align="center" name="show">Ответ к заданию ${
+        <button class="hide" style="float: left;" name="show">Ответ к заданию ${
           i + 1
         }: </button>
-		<br>
+		<br><br>
     <div class="extremum-slide" style="display: none">
-    <div class="answer" style="margin-bottom: 5px;  text-align: center;">${answer}</div>
+    <div class="answer" style="margin-bottom: 5px;  text-align: left;">Ответ: ${answer}.</div>
 		</div>
     <hr>
     </div>`;
@@ -117,12 +136,12 @@ function printTables(divID, printText, i, answer) {
   document.getElementById(divID).innerHTML += `
         <div class="block">
         <br>
-        <button class="hide" align="center" name="show">Ответ к заданию ${
+        <button class="hide" style="float: left;" name="show">Ответ к заданию ${
           i + 1
         }: </button>
-		<br>
+		<br><br>
     <div class="extremum-slide" style="display: none">
-    <div class="answer" style="margin-bottom: 5px;  text-align: center;">${answer}</div>
+    <div class="answer" style="margin-bottom: 5px;  text-align: left;">Ответ: ${answer}.</div>
 		</div>
     <hr>
     </div>`;
@@ -136,17 +155,152 @@ document.getElementById('hideall').addEventListener('click', hideall);
 document.getElementById('random').addEventListener('click', generate_random);
 document.getElementById('test').addEventListener('click', create_test);
 document.getElementById('pdf').addEventListener('click', savePDF);
+document.getElementById('copy').addEventListener('click', copyThis);
 
-
+function copyThis() {
+  var dummy = document.createElement('textarea');
+  document.body.appendChild(dummy);
+  dummy.setAttribute("id", "dummy_id");
+  dummy.value = document.getElementById('input_key').value;
+  dummy.select();
+  document.execCommand('copy');
+  document.body.removeChild(dummy);
+}
 
 function savePDF() {
-  var copy = JSON.parse(JSON.stringify(content_raw))
-  var dd = {content:copy};
-  pdfMake.createPdf(dd).download();
+  if (flag == 1) {
+    var copy = JSON.parse(JSON.stringify(content_raw));
+    var dd = { content: copy };
+    pdfMake.createPdf(dd).download();
+  } else {
+    alert('Сгенерируйте задание или создайте контрольную!');
+  }
 }
 
 function create_test() {
-  alert('Still in development!')
+  document.getElementById('rightwindow').innerHTML = `
+  <header><h1>Выбор задач для контрольной</h1> </header>
+    <div class="types">Количество вариантов: <input type="text" value="1" id="variants" class="task_amount" autocomplete="off" style="text-align:center;"></div><br>
+    <div class="block1">
+    Задачи про системы счисления:
+    <input type="checkbox" id="check1"><br><br>
+    <div class="test-slide-1" style="display: none">
+    <div>
+    Количество легких заданий: <input type="text" id="task-1-easy" class="task_amount" autocomplete="off" style="text-align:center;"><br><br>
+    Количество средних заданий: <input type="text" id="task-1-medium" class="task_amount" autocomplete="off" style="text-align:center;"><br><br>
+    Количество тяжелых заданий: <input type="text" id="task-1-hard" class="task_amount" autocomplete="off" style="text-align:center;"><br><br>
+    </div>
+    </div>
+    </div>
+    <div class="block2">
+    Задачи про расстояние до пункта:
+    <input type="checkbox" id="check2"><br><br>
+    <div class="test-slide-2" style="display: none">
+    <div>
+    Количество легких заданий: <input type="text" id="task-2-easy" class="task_amount" autocomplete="off" style="text-align:center;"><br><br>
+    Количество средних заданий: <input type="text" id="task-2-medium" class="task_amount" autocomplete="off" style="text-align:center;"><br><br>
+    Количество тяжелых заданий: <input type="text" id="task-2-hard" class="task_amount" autocomplete="off" style="text-align:center;"><br><br>
+    </div>
+    </div>
+    </div>
+    <div class="block3">
+    Задачи про TBD:
+    <input type="checkbox" id="check3"><br><br>
+    <div class="test-slide-3" style="display: none">
+    <div>
+    Количество легких заданий: <input type="text" id="task-3-easy" class="task_amount" autocomplete="off" style="text-align:center;"><br><br>
+    Количество средних заданий: <input type="text" id="task-3-medium" class="task_amount" autocomplete="off" style="text-align:center;"><br><br>
+    Количество тяжелых заданий: <input type="text" id="task-3-hard" class="task_amount" autocomplete="off" style="text-align:center;"><br><br>
+    </div>
+    </div>
+    </div>
+    <button class="test-ready" align="left" onclick="test_ready()">Далее</button>`;
+  $('#check1').click(function () {
+    $(this).siblings('div').slideToggle('fast');
+  });
+  $('#check2').click(function () {
+    $(this).siblings('div').slideToggle('fast');
+  });
+  $('#check3').click(function () {
+    $(this).siblings('div').slideToggle('fast');
+  });
+}
+
+function test_ready() {
+  var variants = document.getElementById('variants').value;
+  var task_1_easy = document.getElementById('task-1-easy').value;
+  var task_1_medium = document.getElementById('task-1-medium').value;
+  var task_1_hard = document.getElementById('task-1-hard').value;
+  var task_2_easy = document.getElementById('task-2-easy').value;
+  var task_2_medium = document.getElementById('task-2-medium').value;
+  var task_2_hard = document.getElementById('task-2-hard').value;
+  var task_3_easy = document.getElementById('task-3-easy').value;
+  var task_3_medium = document.getElementById('task-3-medium').value;
+  var task_3_hard = document.getElementById('task-3-hard').value;
+  key = Number(document.getElementById('input_key').value);
+  generator = new MersenneTwister(key);
+  flag = 1;
+  content_raw = [];
+  document.getElementById('rightwindow').innerHTML = '';
+  for (var j = 0; j < variants; j++) {
+    if (j == 0) {
+      content_raw.push({
+        text: 'Вариант ' + (j + 1),
+        fontSize: 20,
+        bold: true,
+        margin: [0, 0, 0, 20],
+      });
+    } else {
+      content_raw.push({
+        text: 'Вариант ' + (j + 1),
+        fontSize: 20,
+        bold: true,
+        pageBreak: 'before',
+        margin: [0, 0, 0, 20],
+      });
+    }
+    var count = 0;
+    document.getElementById('rightwindow').innerHTML += `<h1>Вариант ${
+      j + 1
+    }</h1><hr>`;
+    for (var i = 0; i < task_1_easy; i++) {
+      generate_numeric_1(count);
+      count++;
+    }
+    for (var i = 0; i < task_1_medium; i++) {
+      generate_numeric_2(count);
+      count++;
+    }
+    for (var i = 0; i < task_1_hard; i++) {
+      generate_numeric_3(count);
+      count++;
+    }
+    for (var i = 0; i < task_2_easy; i++) {
+      generate_table_1(count, 1);
+      count++;
+    }
+    for (var i = 0; i < task_2_medium; i++) {
+      generate_table_1(count, 2);
+      count++;
+    }
+    for (var i = 0; i < task_2_hard; i++) {
+      generate_table_1(count, 3);
+      count++;
+    }
+    document.getElementById('rightwindow').innerHTML += '<br>';
+    //  for (var i = 0; i < task_1_easy; i++) {
+    //    generate_numeric_1(count);
+    //    count++;
+    //  }
+    //  for (var i = 0; i < task_1_easy; i++) {
+    //    generate_numeric_1(count);
+    //    count++;
+    //  }
+    // for (var i = 0; i < task_1_easy; i++) {
+    //    generate_numeric_1(count);
+    //    count++;
+    //  }
+  }
 }
 
 function generate_random() {

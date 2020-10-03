@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head>
+  <head> 
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 		<script src="http://code.jquery.com/jquery-1.4.4.js"></script>
@@ -17,26 +17,27 @@
     <div id="windows">
       <div id="leftwindow">
         <div id="taskoptions">
-          <br />
+          <br>
           <label for="task"> Выбор задания </label>
           <select id="task" name="task" placeholder="Выбор задания">
             <option value="1">Системы счисления</option>
             <option value="2">Расстояние до пункта</option>
+            <option value="3">Исполнитель</option>
           </select>
-          <br />
+          <br>
           <label for="difficulty">Сложность</label>
           <select id="difficulty" name="difficulty" placeholder="Сложность">
             <option value="1">Просто</option>
             <option value="2">Средне</option>
             <option value="3">Сложно</option>
           </select>
-            <br />
+            <br>
             <label for="input_key" id="input_key_label">Ключ</label>
-            <input type="text" id="input_key">
-            <button id="random">Случайный</button>
-            <!-- <span class="spanbutton" id="showseed">S</span> -->
-           <br />
-					 <br />
+            <input type="password" id="input_key">
+            <button id="random">R</button>
+            <button id="copy">C</button>
+           <br>
+					 <br>
 					 <label for="amount">Количество заданий</label>
             <select type="text" id="amount">
 							<option value="1">1</option>
@@ -50,10 +51,10 @@
             	<option value="9">9</option>
             	<option value="10">10</option>
 						</select>
-           <br />
+           <br>
           <button id="generate">Сгенерировать</button>
           <button id="test">Создать контрольную</button>
-          <br />
+          <br>
           </div>
 					<div id="utils">
 						<button id="showall">Раскрыть все ответы</button>
@@ -67,11 +68,14 @@
         </div>
       </div>
       <div id="rightwindow">
+        <h1>Руководство</h1>
+        
       </div>
     </div>
   </body>
 	<script src="numeric.js"></script>
 	<script src="script.js"></script>
   <script src="table.js"></script>
+  <script src="algo.js"></script>
 	<script src="MersenneTwister.js"></script>
 </html>

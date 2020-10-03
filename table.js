@@ -73,7 +73,6 @@ function generate_table_1(amount, difficulty) {
   for (var i = 0; i < size; i++) {
     numbers.push(i);
   }
-  console.log(numbers);
   var start = numbers[generator.random_int() % numbers.length];
   numbers = removeClose(numbers, start, 0);
   var end = numbers[generator.random_int() % numbers.length];
@@ -88,7 +87,6 @@ function generate_table_1(amount, difficulty) {
     `;
   printInDiv('rightwindow', taskToPrint);
   var goal = Math.max.apply(Math, randoms);
-  console.log(randoms);
   removeClose(randoms, goal, 0);
   for (var i = 0; i < size; i++) {
     arr[i] = new Array(size);
@@ -172,6 +170,21 @@ function generate_table_1(amount, difficulty) {
       tbl.outerHTML +
       '<hr>'
   );
+
+  var temp = [];
+  for (var i = 0; i < (4 + difficulty) * (4 + difficulty); i++) {
+    if (difficulty == 1) {
+      temp.push('10%');
+    } else {
+      if (difficulty == 2) {
+        temp.push('20%');
+      } else {
+        temp.push('40%');
+      }
+    }
+  }
+  task[3].table.widths = temp;
+  console.log(task[3]);
   content_raw.push({ unbreakable: true, stack: task });
   printTables(
     'rightwindow',
@@ -179,134 +192,4 @@ function generate_table_1(amount, difficulty) {
     amount,
     traverse(arr, new Array(size).fill(0), 0, start, end, size)
   );
-}
-
-function generate_table_2(amount) {
-  var size = 5;
-  var arr = [];
-  var randoms = makeRandoms();
-  var count = 0;
-  let numbers = [0, 1, 2, 3, 4];
-  var start = numbers[generator.random_int() % numbers.length];
-  numbers = removeClose(numbers, start, 0);
-  var end = numbers[generator.random_int() % numbers.length];
-  if (start > end) {
-    [start, end] = [end, start];
-  }
-  var taskToPrint = `
-    <p style = "text-align: left"> Задание ${amount + 1}:<p>
-    Вычислите кратчайшее расстояние между пунктами ${table_names[start]} и ${
-    table_names[end]
-  }.
-    `;
-  printInDiv('rightwindow', taskToPrint);
-  var goal = Math.max.apply(Math, randoms);
-  removeClose(randoms, goal, 0);
-  for (var i = 0; i < size; i++) {
-    arr[i] = new Array(size);
-  }
-  for (var i = 0; i < size; i++) {
-    for (var j = 0; j < size; j++) {
-      if ((i == start && j == end) || (j == start && i == end)) {
-        arr[i][j] = goal;
-      } else {
-        if (j > i) {
-          arr[i][j] = randoms[count];
-          count++;
-        } else {
-          if (j < i) {
-            arr[i][j] = arr[j][i];
-          } else {
-            arr[i][j] = -1;
-          }
-        }
-      }
-    }
-  }
-  tbl = document.createElement('table');
-  tbl.style.width = '300px';
-  tbl.style.textAlign = 'center';
-  tbl.style.border = '1px solid black';
-  tbl.style.borderCollapse = 'collapse';
-  for (var i = 0; i < size + 1; i++) {
-    var tr = tbl.insertRow();
-    for (var j = 0; j < size + 1; j++) {
-      if (i == 0) {
-        if (j == 0) {
-          var td = tr.insertCell();
-          td.appendChild(document.createTextNode(''));
-          td.style.border = '1px solid black';
-          td.width = '100px';
-        } else {
-          var td = tr.insertCell();
-          td.appendChild(document.createTextNode(table_names[j - 1]));
-          td.style.border = '1px solid black';
-          td.width = '100px';
-        }
-      } else {
-        if (j == 0) {
-          var td = tr.insertCell();
-          td.appendChild(document.createTextNode(table_names[i - 1]));
-          td.style.border = '1px solid black';
-          td.width = '100px';
-        } else {
-          var td = tr.insertCell();
-          if (arr[i - 1][j - 1] == -1) {
-            td.appendChild(document.createTextNode(''));
-            td.style.border = '1px solid black';
-            td.style.backgroundColor = 'gray';
-            td.width = '100px';
-          } else {
-            td.appendChild(document.createTextNode(arr[i - 1][j - 1]));
-            td.style.border = '1px solid black';
-            td.width = '100px';
-          }
-        }
-      }
-    }
-  }
-
-  printTables(
-    'rightwindow',
-    tbl,
-    amount,
-    traverse(arr, [0, 0, 0, 0], 0, start, end, 4)
-  );
-}
-
-function generate_table_any(amount) {
-  x_len = 4;
-  y_len = 5;
-  tbl = document.createElement('table');
-  tbl.style.width = '300px';
-  tbl.style.textAlign = 'center';
-  tbl.style.border = '1px solid black';
-  tbl.style.borderCollapse = 'collapse';
-  for (var i = 0; i < y_len + 1; i++) {
-    var tr = tbl.insertRow();
-    for (var j = 0; j < x_len + 1; j++) {
-      if (i == 0) {
-        if (j == 0) {
-          var td = tr.insertCell();
-          td.appendChild(document.createTextNode(''));
-          td.style.border = '1px solid black';
-        } else {
-          var td = tr.insertCell();
-          td.appendChild(document.createTextNode(table_names[j - 1]));
-          td.style.border = '1px solid black';
-        }
-      } else {
-        if (j == 0) {
-          var td = tr.insertCell();
-          td.appendChild(document.createTextNode(table_names[i - 1]));
-          td.style.border = '1px solid black';
-        } else {
-          var td = tr.insertCell();
-          td.appendChild(document.createTextNode(i + j));
-          td.style.border = '1px solid black';
-        }
-      }
-    }
-  }
-  printTables('rightwindow', tbl, amount, 'kek');
 }
