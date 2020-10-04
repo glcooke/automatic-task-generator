@@ -150,7 +150,7 @@ function generate_algo_2(i) {
   var operation_2, operand_1, operand_2;
   var operation_1 = generator.random_int() % 3;
   var print = "У Исполнителя есть две команды:<br>";
-  var temp_print = "У Исполнителя есть две команды:";
+  var temp_print = `<p style = "text-align: left"> Задание ${i + 1}:</p>У Исполнителя есть две команды:`;
   if (operation_1 === 1 || operation_1 === 2) {
     operation_2 = 0;
     operand_2 = numbers[generator.random_int() % 3];
@@ -194,7 +194,7 @@ function generate_algo_2(i) {
     numbers = [1, 2, 3];
     var operation_1 = generator.random_int() % 3;
     print = "У Исполнителя есть две команды:<br>";
-    temp_print = "У Исполнителя есть две команды:";
+    temp_print = `<p style = "text-align: left"> Задание ${i + 1}:</p>У Исполнителя есть две команды:`;
     if (operation_1 === 1 || operation_1 === 2) {
       operation_2 = 0;
       operand_2 = numbers[generator.random_int() % 3];
@@ -258,8 +258,8 @@ function generate_algo_1(i) {
   var op_text_1, op_text_2;
   var operation_2, operand_1, operand_2;
   var operation_1 = generator.random_int() % 3;
-  var print = "У Исполнителя есть две команды:<br>";
-  var temp_print = "У Исполнителя есть две команды:";
+  var print = `У Исполнителя есть две команды:<br>`;
+  var temp_print = `<p style = "text-align: left"> Задание ${i + 1}:</p>У Исполнителя есть две команды:`;
   if (operation_1 === 1 || operation_1 === 2) {
     operation_2 = 0;
     operand_2 = numbers[generator.random_int() % 3];
@@ -337,8 +337,8 @@ function generate_algo_3(i) {
   var op_text_1, op_text_2;
   var operation_2, operand_1, operand_2;
   var operation_1 = generator.random_int() % 3;
-  var print = "У Исполнителя есть две команды:<br>";
-  var temp_print = "У Исполнителя есть две команды:";
+  var print = `У Исполнителя есть две команды:<br>`;
+  var temp_print = `<p style = "text-align: left"> Задание ${i + 1}:</p>У Исполнителя есть две команды:`;
   if (operation_1 === 1 || operation_1 === 2) {
     operation_2 = 0;
     operand_2 = numbers[generator.random_int() % 3];
